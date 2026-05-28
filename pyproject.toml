@@ -1,0 +1,36 @@
+[project]
+name = "ytc"
+dynamic = ["version"]
+description = "Small CLI to fetch YouTube transcripts"
+license = {text = "MIT"}
+requires-python = ">=3.11"
+dependencies = [
+  "youtube-transcript-api>=1.2.3",
+  "yt-dlp>=2024.0.0",
+]
+
+[project.scripts]
+ytc = "ytc.cli:main"
+
+[dependency-groups]
+dev = [
+  "pytest>=8.0.0",
+]
+
+[build-system]
+requires = ["hatchling>=1.25.0", "hatch-vcs>=0.4.0"]
+build-backend = "hatchling.build"
+
+[tool.hatch.version]
+source = "vcs"
+
+[tool.hatch.version.raw-options]
+local_scheme = "node-and-timestamp"
+
+[tool.hatch.build]
+packages = ["src/ytc"]
+
+[tool.uv]
+# Build charset-normalizer from source to avoid unsigned .so files
+# that trigger macOS Gatekeeper warnings.
+no-binary-package = ["charset-normalizer"]
